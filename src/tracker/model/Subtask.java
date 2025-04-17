@@ -1,3 +1,5 @@
+package tracker.model;
+
 public class Subtask extends Task {
     private Epic epic;
 
@@ -27,9 +29,14 @@ public class Subtask extends Task {
     }
 
     @Override
-    protected void setStatus(Status status) {
+    public void setStatus(Status status) {
         super.setStatus(status);
         getEpic().setStatus();
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
     }
 }
 

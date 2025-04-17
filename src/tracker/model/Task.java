@@ -1,3 +1,4 @@
+package tracker.model;
 import java.util.Objects;
 
 public class Task {
@@ -25,10 +26,10 @@ public class Task {
     }
 
     public String getString() {
-        return   "id='" + id + '\'' +
+        return "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' ;
+                ", status='" + status + '\'';
     }
 
     public int getId() {
@@ -59,12 +60,17 @@ public class Task {
         this.description = description;
     }
 
-    protected void setStatus(Status status) {
+    public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     @Override
     public String toString() {
         return "Task{" + getString() + '}';
     }
+
 }

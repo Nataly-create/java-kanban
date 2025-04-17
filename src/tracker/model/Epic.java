@@ -1,6 +1,7 @@
+package tracker.model;
 import java.util.ArrayList;
 
-public class Epic extends Task{
+public class Epic extends Task {
     private final ArrayList<Subtask> subtasks;
 
     public Epic(String title, String description) {
@@ -23,7 +24,14 @@ public class Epic extends Task{
         return subtasks;
     }
 
-    protected void setStatus() {
+    public void deleteSubtask(Subtask subtask) {
+        if (this.subtasks.contains(subtask)) {
+            this.subtasks.remove(subtask);
+            this.setStatus();
+        }
+    }
+
+    public void setStatus() {
         super.setStatus(calculateStatus());
     }
 
@@ -31,15 +39,20 @@ public class Epic extends Task{
         boolean statusNew = false;
         boolean statusInProgress = false;
         boolean statusDone = false;
-        for(Task task: subtasks) {
+        for (Task task : subtasks) {
             Status tasksStatus = task.getStatus();
             if (statusInProgress) return Status.IN_PROGRESS;
-            if(tasksStatus == Status.DONE && !statusNew) {
+            if (tasksStatus == Status.DONE && !statusNew) {
                 statusDone = true;
             } else if (tasksStatus == Status.NEW && !statusDone) {
                 statusNew = true;
             } else statusInProgress = true;
         }
         return statusInProgress ? Status.IN_PROGRESS : (statusDone ? Status.DONE : Status.NEW);
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
     }
 }
