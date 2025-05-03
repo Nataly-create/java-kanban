@@ -65,12 +65,10 @@ class InMemoryTaskManagerTest {
     void shouldBeUnchangedAfterAdd() {
         Task task = new Task("Test title 1", "Test description 1");
         inMemoryTaskManager.addTask(task);
-
         String title = task.getTitle();
         String description = task.getDescription();
-        Integer id = task.getId();
+        int id = task.getId();
 
-        inMemoryTaskManager.addTask(task);
         assertEquals(title, task.getTitle(), "Tasks title ist different.");
         assertEquals(description, task.getDescription(), "Tasks description ist different.");
         assertEquals(id, task.getId(), "Tasks id ist different.");

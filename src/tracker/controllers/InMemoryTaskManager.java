@@ -45,8 +45,12 @@ public class InMemoryTaskManager implements TaskManager {
             task = tasks.get(id);
         } else if (subtasks.containsKey(id)) {
             task = subtasks.get(id);
-        } else task = epics.getOrDefault(id, null);
-        historyManager.add(task);
+        } else {
+            task = epics.getOrDefault(id, null);
+        }
+        if(task != null) {
+            historyManager.add(task);
+        }
         return task;
     }
 
