@@ -15,7 +15,7 @@ class TaskTest {
 
         InMemoryTaskManager inMemoryTaskManager = (InMemoryTaskManager) Managers.getDefault();
         inMemoryTaskManager.addTask(task1);
-        task2.setId(1);
+        task2.setId(task1.getId());
         assertEquals(task1, task2, "Tasks with same id should be equal.");
     }
 }
