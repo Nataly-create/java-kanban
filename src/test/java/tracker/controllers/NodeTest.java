@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NodeTest {
 
     @Test
-    void Node() {
+    void node() {
         Task task = new Task("Test", "Test");
         Task taskPrev = new Task("Tesk prev", "Task prev");
         Task taskNext = new Task("Task next", "Task next");
