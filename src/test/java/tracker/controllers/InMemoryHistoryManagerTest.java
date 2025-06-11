@@ -18,14 +18,14 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldNotBeNullAfterLinkLast(){
+    void shouldNotBeNullAfterLinkLast() {
         inMemoryHistoryManager.linkLast(task);
         assertNotNull(inMemoryHistoryManager.getHead(), "Head not found.");
         assertNotNull(inMemoryHistoryManager.getLast(), "Last not found.");
     }
 
     @Test
-    void shouldBeEmptyAfterRemoveNode(){
+    void shouldBeEmptyAfterRemoveNode() {
         inMemoryHistoryManager.linkLast(task);
         HashMap<Integer, Node> historyMap = inMemoryHistoryManager.getHistoryMap();
         Node nodeHead = inMemoryHistoryManager.getHead();
