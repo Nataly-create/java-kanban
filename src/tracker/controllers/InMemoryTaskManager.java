@@ -48,7 +48,7 @@ public class InMemoryTaskManager implements TaskManager {
         } else {
             task = epics.getOrDefault(id, null);
         }
-        if(task != null) {
+        if (task != null) {
             historyManager.add(task);
         }
         return task;
