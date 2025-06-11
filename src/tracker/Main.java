@@ -37,7 +37,7 @@ public class Main {
         printArrayList(inMemoryTaskManager, TaskType.SUBTASK);
 
         System.out.println(" . . . History . . . ");
-        for(int i = 1; i < 14; ++i) {
+        for (int i = 1; i < 14; ++i) {
             inMemoryTaskManager.getById(i % 7 + 1);
         }
         ArrayList<Task> history = inMemoryTaskManager.getHistory();
