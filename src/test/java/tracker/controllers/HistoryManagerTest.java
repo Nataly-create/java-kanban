@@ -23,9 +23,10 @@ class HistoryManagerTest {
 
         final ArrayList<Task> history = historyManager.getHistory();
         historyManager.add(task);
+        int sizeHistory = historyManager.getHistory().size();
 
         assertNotNull(history, "History cannot be empty after task creation.");
-        assertEquals(1, history.size(), "History cannot be empty after task creation.");
+        assertEquals(1, sizeHistory, "History cannot be empty after task creation.");
     }
 
     @Test
