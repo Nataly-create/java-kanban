@@ -11,9 +11,9 @@ public class NodeTest {
         Task task = new Task("Test", "Test");
         Task taskPrev = new Task("Tesk prev", "Task prev");
         Task taskNext = new Task("Task next", "Task next");
-        Node nodePrev = new Node(taskPrev, null, null);
-        Node nodeNext = new Node(taskNext, null, null);
-        Node node = new Node(task, nodePrev, nodeNext);
+        InMemoryHistoryManager.Node nodePrev = new InMemoryHistoryManager.Node(taskPrev, null, null);
+        InMemoryHistoryManager.Node nodeNext = new InMemoryHistoryManager.Node(taskNext, null, null);
+        InMemoryHistoryManager.Node node = new InMemoryHistoryManager.Node(task, nodePrev, nodeNext);
 
         assertNotNull(node, "node not found.");
         assertNotNull(node.prev, "node.prev not found.");
