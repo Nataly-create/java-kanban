@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 
-public class FileBackedTaskManager extends InMemoryTaskManager{
+public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
 
     public FileBackedTaskManager(File file) {
@@ -49,7 +49,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
         try (Writer fileWriter = new FileWriter(file)) {
             fileWriter.write("id,type,name,status,description,epic\n");
             for (Task task: getTasks()) {
-                fileWriter.write(toString(task) +"\n");
+                fileWriter.write(toString(task) + "\n");
             }
             for (Epic epic: getEpics()) {
                 fileWriter.write(toString(epic) + "\n");
