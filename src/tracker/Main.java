@@ -51,6 +51,9 @@ public class Main {
         fileBackedTaskManager.save();
         FileBackedTaskManager fileBackedTaskManagerFile = FileBackedTaskManager.loadFromFile(file);
 
+        Task task4 = new Task("Task 4", "Do task 4");
+        fileBackedTaskManagerFile.addTask(task4);
+
         System.out.println("- - - Tasks from file - - -");
         printArrayList(fileBackedTaskManagerFile, TaskType.TASK);
         System.out.println("- - - Epics from file- - -");

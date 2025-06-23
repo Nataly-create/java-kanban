@@ -6,6 +6,7 @@ import tracker.model.Epic;
 import tracker.model.Status;
 import tracker.model.Subtask;
 import tracker.model.Task;
+import tracker.exceptions.ManagerSaveException;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class FileBackedTaskManagerTest {
             file = File.createTempFile("temp_", ".csv");
             fileBackedTaskManager = Managers.getDefaultFileBacked(file);
         } catch (IOException e) {
-            throw new FileBackedTaskManager.ManagerSaveException(e.getMessage());
+            throw new ManagerSaveException(e.getMessage());
         }
     }
 
@@ -48,5 +49,20 @@ public class FileBackedTaskManagerTest {
         assertEquals(1,  fileBackedTaskManagerFile.getTasks().size(), "Does not contain one task.");
         assertEquals(1,  fileBackedTaskManagerFile.getSubtasks().size(), "Does not contain one subtask.");
         assertEquals(1,  fileBackedTaskManagerFile.getEpics().size(), "Does not contain one epic.");
+    }
+
+    @Test
+    void isCorrectID(){
+        Task task1 = new Task("Task 1", "Do task 1");
+        fileBackedTaskManager.addTask(task1);
+
+        FileBackedTaskManager fileBackedTaskManagerFile =  FileBackedTaskManager.loadFromFile(file);
+
+        assertEquals(1,  fileBackedTaskManagerFile.getTasks().size(), "Does not contain one task.");
+
+        Task task2 = new Task("Task 2", "Do task 2");
+        fileBackedTaskManagerFile.addTask(task2);
+
+        assertEquals(2,  fileBackedTaskManagerFile.getTasks().size(), "Does not contain two tasks.");
     }
 }

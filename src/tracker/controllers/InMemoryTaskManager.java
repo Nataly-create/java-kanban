@@ -13,6 +13,14 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, Epic> epics = new HashMap<>();
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        InMemoryTaskManager.count = count;
+    }
+
     @Override
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks.values());

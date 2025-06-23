@@ -1,5 +1,6 @@
 package tracker.controllers;
 
+import tracker.exceptions.ManagerSaveException;
 import tracker.model.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -69,7 +70,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String[] contentList = content.split("\n");
             for (int i = 1; i < contentList.length; ++i) {
                 Task task = fileBackedTaskManager.fromString(contentList[i]);
-                fileBackedTaskManager.addTaskFromFile(task);
+                int addedId = fileBackedTaskManager.addTaskFromFile(task);
+                setCount(addedId);
             }
         } catch (IOException e) {
             throw new ManagerSaveException(e.getMessage());
@@ -77,7 +79,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return fileBackedTaskManager;
     }
 
-    public void addTaskFromFile(Task task) {
+    public int addTaskFromFile(Task task) {
         int id = task.getId();
         if (task.getClass() == Task.class) {
             tasks.put(id, (Task) task);
@@ -86,6 +88,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             updateTask(((Subtask) task).getEpic());
         } else if (task.getClass() == Epic.class) {
             epics.put(id, (Epic) task);
+        }
+        return id;
+    }
+
+     public static void setCount(int id) {
+        if (id > getCount()) {
+            setCount(id);
         }
     }
 
@@ -137,9 +146,4 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-   public static class ManagerSaveException extends RuntimeException {
-        public ManagerSaveException(final String message) {
-            super(message);
-        }
-    }
 }
