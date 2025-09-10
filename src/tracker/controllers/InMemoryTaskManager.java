@@ -82,6 +82,29 @@ public class InMemoryTaskManager implements TaskManager {
             prioritizedTasks.remove(tasks.get(id));
         } else if (subtasks.containsKey(id)) {
             Epic epic = ((Subtask) getById(id)).getEpic();
+            epic.deleteSubtask(subtasks.get(id));
+            subtasks.remove(id);
+            historyManager.remove(id);
+            prioritizedTasks.remove(subtasks.get(id));
+        } else if (epics.containsKey(id)) {
+            deleteSubtasksOfEpic(id);
+            epics.remove(id);
+            historyManager.remove(id);
+            prioritizedTasks.remove(epics.get(id));
+        }
+    }
+
+    @Override
+    public void deleteSubtasksOfEpic(int id) {
+        ArrayList<Subtask> subtasksToDelete = epics.get(id).getSubtasks();
+        for (Subtask subtask : subtasksToDelete) {
+            int idSubtask = subtask.getId();
+            subtasks.remove(idSubtask);
+            historyManager.remove(idSubtask);
+            prioritizedTasks.remove(subtasks.get(id));
+        }
+    }
+
     @Override
     public void addTask(Task task) {
         if (hasIntersects(task)) {
@@ -169,13 +192,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public boolean hasIntersects(Task task) {
-        for (Task taskPrioritized : getPrioritizedTasks()) {
-            if (!task.equals(taskPrioritized)) {
-                if (task.isIntersect(taskPrioritized)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getPrioritizedTasks().stream().filter(t -> !t.equals(task)).anyMatch(task::isIntersect);
     }
 }
