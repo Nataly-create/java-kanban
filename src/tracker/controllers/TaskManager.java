@@ -5,7 +5,9 @@ import tracker.model.Subtask;
 import tracker.model.Task;
 import tracker.model.TaskType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public interface TaskManager {
     ArrayList<Task> getTasks();
@@ -17,6 +19,8 @@ public interface TaskManager {
     ArrayList<Subtask> getSubtasksForEpic(Epic epic);
 
     ArrayList<Task> getHistory();
+
+    ArrayList<Task> getPrioritizedTasks();
 
     int getNewId();
 
@@ -37,4 +41,6 @@ public interface TaskManager {
     void deleteSubtasks();
 
     void deleteEpics();
+
+    boolean hasIntersects(Task task);
 }
