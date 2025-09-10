@@ -27,7 +27,7 @@ public class Main {
         fileBackedTaskManager.addTask(epic1);
         Subtask subtask1 = new Subtask("Subtask 1", "Do subtask 1", epic1);
         subtask1.setStatus(Status.DONE);
-        subtask1.setStartTime((short) 2025, (byte) 07, (byte) 30, (byte) 10, (byte) 0);
+        subtask1.setStartTime((short) 2025, (byte) 7, (byte) 30, (byte) 10, (byte) 0);
         subtask1.setDuration(100);
         fileBackedTaskManager.addTask(subtask1);
 

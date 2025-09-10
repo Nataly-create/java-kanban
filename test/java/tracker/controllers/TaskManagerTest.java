@@ -1,4 +1,7 @@
 package java.tracker.controllers;
 
-public class TaskManagerTest {
+import tracker.controllers.TaskManager;
+
+public abstract class TaskManagerTest<T extends TaskManager> {
+
 }
