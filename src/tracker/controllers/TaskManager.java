@@ -5,9 +5,7 @@ import tracker.model.Subtask;
 import tracker.model.Task;
 import tracker.model.TaskType;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public interface TaskManager {
     ArrayList<Task> getTasks();
