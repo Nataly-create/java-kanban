@@ -12,7 +12,6 @@ public class Epic extends Task {
         this.subtasks = new ArrayList<>();
     }
 
-
     @Override
     public String getString() {
         return super.getString() +
@@ -32,7 +31,7 @@ public class Epic extends Task {
         if (this.subtasks.contains(subtask)) {
             this.subtasks.remove(subtask);
             this.setStatus();
-            this.setDuration();
+            setTimeValues();
         }
     }
 
@@ -59,6 +58,11 @@ public class Epic extends Task {
     @Override
     public TaskType getType() {
         return TaskType.EPIC;
+    }
+
+    public void setTimeValues() {
+        setStartTime();
+        setDuration();
     }
 
     public void setDuration() {

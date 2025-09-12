@@ -106,21 +106,24 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task task) {
-        if (hasIntersects(task)) {
-            return;
-        }
         if (task.getClass() == Task.class) {
             ((Task) task).setId(getNewId());
-            tasks.put(count, (Task) task);
+            if (!hasIntersects(task)) {
+                tasks.put(count, (Task) task);
+            }
         } else if (task.getClass() == Subtask.class) {
             ((Subtask) task).setId(getNewId());
-            subtasks.put(count, (Subtask) task);
-            updateTask(((Subtask) task).getEpic());
+            if (!hasIntersects(task)) {
+                subtasks.put(count, (Subtask) task);
+                Epic epic = ((Subtask) task).getEpic();
+                updateTask(epic);
+                epic.setStartTime();
+            }
         } else if (task.getClass() == Epic.class) {
             ((Epic) task).setId(getNewId());
             epics.put(count, (Epic) task);
         }
-        if (task.getStartTime() != null) {
+        if (task.getStartTime() != null && task.getClass() != Epic.class) {
             prioritizedTasks.add(task);
         }
     }
@@ -165,8 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
         for (Epic epic : epics.values()) {
             deleteSubtasksOfEpic(epic.getId());
             epic.setStatus();
-            epic.setDuration();
-            epic.setStartTime();
+            epic.setTimeValues();
         }
         subtasks.clear();
     }
@@ -175,7 +177,6 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteEpics() {
         for (Task epic : epics.values()) {
             historyManager.remove(epic.getId());
-            prioritizedTasks.remove(epic);
         }
         for (Task subtask : subtasks.values()) {
             historyManager.remove(subtask.getId());
