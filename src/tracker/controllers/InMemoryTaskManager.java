@@ -60,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
             task = tasks.get(id);
         } else if (subtasks.containsKey(id)) {
             task = subtasks.get(id);
-        } else if (epics.containsKey(id)){
+        } else if (epics.containsKey(id)) {
             task = epics.getOrDefault(id, null);
         } else {
             throw new NotFoundException("Task " + id + " not found.");
@@ -94,7 +94,7 @@ public class InMemoryTaskManager implements TaskManager {
             prioritizedTasks.remove(epics.get(id));
             epics.remove(id);
         } else {
-            throw new NotFoundException("Task "+ id + " not found.");
+            throw new NotFoundException("Task " + id + " not found.");
         }
     }
 
