@@ -13,9 +13,9 @@ public class SubtaskAdapter extends TypeAdapter<Subtask> {
     TaskManager taskManager;
 
     public SubtaskAdapter(TaskManager taskManager) {
-        this.taskManager = taskManager;        
+        this.taskManager = taskManager;
     }
-    
+
     @Override
     public void write(final JsonWriter jsonWriter, final Subtask subtask) throws IOException {
         jsonWriter.value(subtask.getId());
