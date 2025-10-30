@@ -3,7 +3,6 @@ package tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tracker.controllers.FileBackedTaskManager;
-import tracker.controllers.InMemoryTaskManager;
 import tracker.controllers.Managers;
 import tracker.controllers.TaskManager;
 import tracker.exceptions.NotFoundException;
@@ -193,7 +192,7 @@ public class HttpTaskServer {
         }
     }
 
-    public static <T extends TaskManager> void printArrayList (T inMemoryTaskManager, TaskType type) {
+    public static <T extends TaskManager> void printArrayList(T inMemoryTaskManager, TaskType type) {
         switch (type) {
             case TASK:
                 for (Task task : inMemoryTaskManager.getTasks()) {
