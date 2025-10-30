@@ -67,7 +67,7 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-    public TasksHandler (TaskManager taskManager) {
+    public TasksHandler(TaskManager taskManager) {
         super(taskManager);
     }
 }
