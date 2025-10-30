@@ -1,6 +1,7 @@
 package tracker.controllers;
 import java.util.*;
 
+import tracker.exceptions.NotFoundException;
 import tracker.model.Epic;
 import tracker.model.Subtask;
 import tracker.model.Task;
@@ -53,14 +54,16 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getById(int id) {
+    public Task getById(int id) throws NotFoundException {
         Task task;
         if (tasks.containsKey(id)) {
             task = tasks.get(id);
         } else if (subtasks.containsKey(id)) {
             task = subtasks.get(id);
-        } else {
+        } else if (epics.containsKey(id)){
             task = epics.getOrDefault(id, null);
+        } else {
+            throw new NotFoundException("Task " + id + " not found.");
         }
         if (task != null) {
             historyManager.add(task);
@@ -74,22 +77,24 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int id) throws NotFoundException {
         if (tasks.containsKey(id)) {
-            tasks.remove(id);
             historyManager.remove(id);
             prioritizedTasks.remove(tasks.get(id));
+            tasks.remove(id);
         } else if (subtasks.containsKey(id)) {
             Epic epic = ((Subtask) getById(id)).getEpic();
             epic.deleteSubtask(subtasks.get(id));
-            subtasks.remove(id);
             historyManager.remove(id);
             prioritizedTasks.remove(subtasks.get(id));
+            subtasks.remove(id);
         } else if (epics.containsKey(id)) {
             deleteSubtasksOfEpic(id);
-            epics.remove(id);
             historyManager.remove(id);
             prioritizedTasks.remove(epics.get(id));
+            epics.remove(id);
+        } else {
+            throw new NotFoundException("Task "+ id + " not found.");
         }
     }
 
@@ -98,9 +103,9 @@ public class InMemoryTaskManager implements TaskManager {
         ArrayList<Subtask> subtasksToDelete = epics.get(id).getSubtasks();
         for (Subtask subtask : subtasksToDelete) {
             int idSubtask = subtask.getId();
+            prioritizedTasks.remove(subtask);
             subtasks.remove(idSubtask);
             historyManager.remove(idSubtask);
-            prioritizedTasks.remove(subtasks.get(id));
         }
     }
 
@@ -132,10 +137,15 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateTask(Object task) {
         if (task.getClass() == Task.class) {
             tasks.put(((Task) task).getId(), (Task) task);
+            prioritizedTasks.remove(task);
         } else if (task.getClass() == Subtask.class) {
             subtasks.put(((Subtask) task).getId(), (Subtask) task);
+            prioritizedTasks.remove(task);
         } else if (task.getClass() == Epic.class) {
             epics.put(((Epic) task).getId(), (Epic) task);
+        }
+        if (((Task) task).getStartTime() != null && ((Task) task).getClass() != Epic.class) {
+            prioritizedTasks.add((Task) task);
         }
     }
 

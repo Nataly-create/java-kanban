@@ -1,6 +1,7 @@
 package tracker.controllers;
 
 import tracker.exceptions.ManagerSaveException;
+import tracker.exceptions.NotFoundException;
 import tracker.model.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -106,7 +107,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById (int id) throws NotFoundException {
         super.deleteById(id);
         save();
     }

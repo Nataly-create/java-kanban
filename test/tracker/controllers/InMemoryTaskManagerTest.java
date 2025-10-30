@@ -2,6 +2,7 @@ package tracker.controllers;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import tracker.exceptions.NotFoundException;
 import tracker.model.Epic;
 import tracker.model.Subtask;
 import tracker.model.Task;
@@ -21,7 +22,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void addTask() {
+    void addTask() throws NotFoundException {
         Task task = new Task("Test title 1", "Test description 1", Duration.ofMinutes(60), LocalDateTime.now());
         inMemoryTaskManager.addTask(task);
 

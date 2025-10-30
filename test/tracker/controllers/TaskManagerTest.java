@@ -1,4 +1,4 @@
-package java.tracker.controllers;
+package tracker.controllers;
 
 import tracker.controllers.TaskManager;
 
