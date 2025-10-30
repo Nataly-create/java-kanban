@@ -107,7 +107,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteById (int id) throws NotFoundException {
+    public void deleteById(int id) throws NotFoundException {
         super.deleteById(id);
         save();
     }
