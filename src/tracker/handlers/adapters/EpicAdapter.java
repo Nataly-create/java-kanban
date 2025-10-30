@@ -13,9 +13,9 @@ public class EpicAdapter extends TypeAdapter<Epic> {
     TaskManager taskManager;
 
     public EpicAdapter(TaskManager taskManager) {
-        this.taskManager = taskManager;        
+        this.taskManager = taskManager;
     }
-    
+
     @Override
     public void write(final JsonWriter jsonWriter, final Epic epic) throws IOException {
         jsonWriter.value(epic.getId());
