@@ -67,7 +67,7 @@ public class HttpTaskManagerEpicsTest {
 
         assertNotNull(tasksFromManager, "Задачи не возвращаются");
         assertEquals(1, tasksFromManager.size(), "Некорректное количество задач");
-        assertEquals("Test 1", tasksFromManager.get(0).getTitle(), "Некорректное имя задачи");
+        assertEquals("Test 1", tasksFromManager.getFirst().getTitle(), "Некорректное имя задачи");
     }
 
     @Test

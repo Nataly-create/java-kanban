@@ -7,8 +7,10 @@ import com.sun.net.httpserver.HttpHandler;
 import tracker.controllers.TaskManager;
 import tracker.handlers.adapters.EpicAdapter;
 import tracker.model.Epic;
+import tracker.model.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
@@ -22,7 +24,14 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
             Gson gson = gsonBuilder.create();
 
             if (requestMethod.equals("GET")) {
-                sendText(httpExchange, gson.toJson(taskManager.getHistory()), 200);
+                ArrayList<Task> history = taskManager.getHistory();
+                if (history.isEmpty()) {
+                    sendText(httpExchange, "Not found.", 404);
+                } else {
+                    sendText(httpExchange, gson.toJson(history), 200);
+                }
+            } else {
+                sendText(httpExchange, "Method not allowed.", 405);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
