@@ -1,5 +1,6 @@
 package tracker.controllers;
 
+import tracker.exceptions.NotFoundException;
 import tracker.model.Epic;
 import tracker.model.Subtask;
 import tracker.model.Task;
@@ -18,11 +19,13 @@ public interface TaskManager {
 
     ArrayList<Task> getHistory();
 
+    ArrayList<Task> getPrioritizedTasks();
+
     int getNewId();
 
-    Task getById(int id);
+    Task getById(int id) throws NotFoundException;
 
-    void deleteById(int id);
+    void deleteById(int id) throws NotFoundException;
 
     void deleteSubtasksOfEpic(int id);
 
@@ -37,4 +40,6 @@ public interface TaskManager {
     void deleteSubtasks();
 
     void deleteEpics();
+
+    boolean hasIntersects(Task task);
 }
