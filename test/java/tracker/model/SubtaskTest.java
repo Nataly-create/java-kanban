@@ -16,7 +16,7 @@ class SubtaskTest {
 
         InMemoryTaskManager inMemoryTaskManager = (InMemoryTaskManager) Managers.getDefault();
         inMemoryTaskManager.addTask(subtask1);
-        subtask2.setId(1);
+        subtask2.setId(subtask1.getId());
         assertEquals(subtask1, subtask2, "Subtasks with same id should be equal.");
     }
 }
