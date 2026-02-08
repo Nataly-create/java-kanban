@@ -18,6 +18,8 @@ public interface TaskManager {
 
     ArrayList<Task> getHistory();
 
+    ArrayList<Task> getPrioritizedTasks();
+
     int getNewId();
 
     Task getById(int id);
@@ -37,4 +39,6 @@ public interface TaskManager {
     void deleteSubtasks();
 
     void deleteEpics();
+
+    boolean hasIntersects(Task task);
 }

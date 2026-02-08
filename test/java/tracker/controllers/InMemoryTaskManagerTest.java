@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import tracker.model.Epic;
 import tracker.model.Subtask;
 import tracker.model.Task;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 class InMemoryTaskManagerTest {
@@ -18,7 +22,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void addTask() {
-        Task task = new Task("Test title 1", "Test description 1");
+        Task task = new Task("Test title 1", "Test description 1", Duration.ofMinutes(60), LocalDateTime.now());
         inMemoryTaskManager.addTask(task);
 
         Epic epic = new Epic("Test title 2", "Test description 2");
